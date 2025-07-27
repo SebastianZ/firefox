@@ -882,12 +882,12 @@ input:-moz-value-empty::-moz-search-clear-button {
   visibility: hidden;
 }
 
-input:is([type="date"], [type="time"], [type="datetime-local"]) {
+input:is([type="date"], [type="time"], [type="datetime-local"], [type="month"]) {
   font-family: -moz-fixed;
   cursor: default;
 }
 
-input:is([type="date"], [type="time"], [type="datetime-local"]):is(:disabled, :read-only) {
+input:is([type="date"], [type="time"], [type="datetime-local"], [type="month"]):is(:disabled, :read-only) {
   color: GrayText;
 }
 

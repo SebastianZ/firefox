@@ -5402,8 +5402,8 @@ bool HTMLInputElement::IsDateTimeTypeSupported(
     case FormControlType::InputDate:
     case FormControlType::InputTime:
     case FormControlType::InputDatetimeLocal:
-      return true;
     case FormControlType::InputMonth:
+      return true;
     case FormControlType::InputWeek:
       return StaticPrefs::dom_forms_datetime_others();
     default:

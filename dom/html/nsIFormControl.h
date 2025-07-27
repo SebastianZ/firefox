@@ -261,7 +261,6 @@ bool nsIFormControl::IsSingleLineTextControl(bool aExcludePassword,
     case FormControlType::InputUrl:
     case FormControlType::InputNumber:
     // TODO: those are temporary until bug 773205 is fixed.
-    case FormControlType::InputMonth:
     case FormControlType::InputWeek:
       return true;
     case FormControlType::InputPassword:

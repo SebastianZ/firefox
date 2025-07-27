@@ -1590,7 +1590,8 @@ class HTMLInputElement final : public TextControlElement,
   static bool CreatesDateTimeWidget(FormControlType aType) {
     return aType == FormControlType::InputDate ||
            aType == FormControlType::InputTime ||
-           aType == FormControlType::InputDatetimeLocal;
+           aType == FormControlType::InputDatetimeLocal ||
+           aType == FormControlType::InputMonth;
   }
 
   bool CreatesDateTimeWidget() const { return CreatesDateTimeWidget(mType); }

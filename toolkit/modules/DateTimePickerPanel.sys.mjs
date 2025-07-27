@@ -10,6 +10,8 @@ export var DateTimePickerPanel = class {
     this.TIME_PICKER_HEIGHT = "22em";
     this.DATE_PICKER_WIDTH = "24em";
     this.DATE_PICKER_HEIGHT = "27em";
+    this.MONTH_PICKER_WIDTH = "13em";
+    this.MONTH_PICKER_HEIGHT = "22em";
   }
 
   get dateTimePopupFrame() {
@@ -51,6 +53,17 @@ export var DateTimePickerPanel = class {
         );
         this.dateTimePopupFrame.style.width = this.DATE_PICKER_WIDTH;
         this.dateTimePopupFrame.style.height = this.DATE_PICKER_HEIGHT;
+        break;
+      }
+      case "month": {
+        this.detail = detail;
+        this.dateTimePopupFrame.addEventListener("load", this, true);
+        this.dateTimePopupFrame.setAttribute(
+          "src",
+          "chrome://global/content/monthpicker.xhtml"
+        );
+        this.dateTimePopupFrame.style.width = this.MONTH_PICKER_WIDTH;
+        this.dateTimePopupFrame.style.height = this.MONTH_PICKER_HEIGHT;
         break;
       }
     }

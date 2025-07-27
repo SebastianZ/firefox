@@ -3441,7 +3441,11 @@
 # Support for input type=month, type=week. By default, disabled.
 - name: dom.forms.datetime.others
   type: bool
-  value: @IS_ANDROID@
+#if defined(MOZ_WIDGET_ANDROID) || defined(NIGHTLY_BUILD)
+  value: true
+#else
+  value: false
+#endif
   mirror: always
 
 - name: dom.forms.always_allow_pointer_events.enabled

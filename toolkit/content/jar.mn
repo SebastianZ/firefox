@@ -53,6 +53,7 @@ toolkit.jar:
    content/global/filepicker.properties
    content/global/customElements.js
    content/global/globalOverlay.js
+   content/global/monthpicker.xhtml
    content/global/mozilla.html
    content/global/aboutMozilla.css
    content/global/preferencesBindings.js
@@ -71,6 +72,7 @@ toolkit.jar:
    content/global/bindings/calendar.js         (widgets/calendar.js)
    content/global/bindings/datekeeper.js       (widgets/datekeeper.js)
    content/global/bindings/datepicker.js       (widgets/datepicker.js)
+   content/global/bindings/monthpicker.js      (widgets/monthpicker.js)
    content/global/bindings/datetimebox.css     (widgets/datetimebox.css)
    content/global/bindings/spinner.js          (widgets/spinner.js)
    content/global/bindings/timekeeper.js       (widgets/timekeeper.js)

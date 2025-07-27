@@ -69,6 +69,10 @@ this.DateTimeBoxWidget = class {
     return this.type == "date" || this.type == "datetime-local";
   }
 
+  shouldShowMonth() {
+    return this.type == "month";
+  }
+
   teardown() {
     this.mInputElement.removeEventListener("keydown", this, {
       capture: true,
@@ -812,6 +816,10 @@ this.DateTimeBoxWidget = class {
       options.year = options.month = options.day = "numeric";
     }
 
+    if (this.shouldShowMonth()) {
+      options.year = options.month = "numeric";
+    }
+
     let formatter = Intl.DateTimeFormat(this.mLocales, options);
     formatter.formatToParts(Date.now()).map(part => {
       switch (part.type) {
@@ -1034,6 +1042,12 @@ this.DateTimeBoxWidget = class {
       }
     }
 
+    if (this.shouldShowMonth()) {
+      this.log("setFieldsFromInputValue: " + value);
+      this.setFieldValue(this.mYearField, year);
+      this.setFieldValue(this.mMonthField, month);
+    }
+
     this.notifyPicker();
   }
 
@@ -1095,6 +1109,14 @@ this.DateTimeBoxWidget = class {
       month = month < 10 ? "0" + month : month;
       day = day < 10 ? "0" + day : day;
       date = [year, month, day].join("-");
+    }
+
+    if (this.shouldShowMonth()) {
+      // Convert to a valid month string according to:
+      // https://html.spec.whatwg.org/multipage/common-microsyntaxes.html#valid-month-string
+      year = year.toString().padStart(this.mYearLength, "0");
+      month = month < 10 ? "0" + month : month;
+      date = [year, month].join("-");
     }
 
     let value;
@@ -1211,6 +1233,11 @@ this.DateTimeBoxWidget = class {
       value.minute = this.getFieldValue(this.mMinuteField);
       value.second = this.getFieldValue(this.mSecondField);
       value.millisecond = this.getFieldValue(this.mMillisecField);
+    }
+
+    if (this.shouldShowMonth()) {
+      value.year = this.getFieldValue(this.mYearField);
+      value.month = this.getFieldValue(this.mMonthField);
     }
 
     this.log("getCurrentValue: " + JSON.stringify(value));
@@ -1353,6 +1380,9 @@ this.DateTimeBoxWidget = class {
     if (this.type == "datetime-local") {
       // https://html.spec.whatwg.org/#valid-normalised-local-date-and-time-string
       [date, time] = value.split("T");
+    }
+    if (this.type == "month") {
+      date = value;
     }
     if (date) {
       [year, month, day] = date.split("-");

@@ -3639,8 +3639,8 @@ nsCSSFrameConstructor::FindInputData(const Element& aElement,
       SIMPLE_INT_CREATE(FormControlType::InputDate, NS_NewDateTimeControlFrame),
       SIMPLE_INT_CREATE(FormControlType::InputDatetimeLocal,
                         NS_NewDateTimeControlFrame),
-      // TODO: this is temporary until a frame is written: bug 888320
-      SIMPLE_INT_CREATE(FormControlType::InputMonth, NS_NewTextControlFrame),
+      SIMPLE_INT_CREATE(FormControlType::InputMonth,
+                        NS_NewDateTimeControlFrame),
       // TODO: this is temporary until a frame is written: bug 888320
       SIMPLE_INT_CREATE(FormControlType::InputWeek, NS_NewTextControlFrame),
       SIMPLE_INT_CREATE(FormControlType::InputSubmit,

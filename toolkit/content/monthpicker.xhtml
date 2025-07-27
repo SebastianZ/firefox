@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- This Source Code Form is subject to the terms of the Mozilla Public
+   - License, v. 2.0. If a copy of the MPL was not distributed with this file,
+   - You can obtain one at http://mozilla.org/MPL/2.0/. -->
+
+<!DOCTYPE html [ <!ENTITY % htmlDTD PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+%htmlDTD; ]>
+<html
+  xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:xul="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+>
+  <head>
+    <link
+      rel="stylesheet"
+      href="chrome://global/skin/datetimeinputpickers.css"
+    />
+    <link rel="localization" href="toolkit/global/monthpicker.ftl" />
+    <script src="chrome://global/content/bindings/datekeeper.js"></script>
+    <script src="chrome://global/content/bindings/spinner.js"></script>
+    <script src="chrome://global/content/bindings/calendar.js"></script>
+    <script src="chrome://global/content/bindings/monthpicker.js"></script>
+  </head>
+  <body>
+    <div
+      id="month-picker"
+      role="dialog"
+      data-l10n-id="month-picker-label"
+      aria-modal="true"
+    >
+      <div class="month-year-nav" data-l10n-id="month-spinner-label">
+        <!--<button class="prev" data-l10n-id="month-picker-previous" />
+        <div class="month-year-container">
+          <button
+            class="month-year"
+            id="month-year-label"
+            aria-live="polite"
+          />
+        </div>
+        <button class="next" data-l10n-id="month-picker-next" />
+        -->
+        <template id="spinner-template">
+          <div class="spinner-container">
+            <button class="up" />
+            <div class="spinner"></div>
+            <button class="down" />
+          </div>
+        </template>
+        <div class="month-year-view"></div>
+      </div>
+      <button id="clear-button" data-l10n-id="month-picker-clear-button" />
+    </div>
+    <script>
+      /* import-globals-from widgets/monthpicker.js */
+      // Create a MonthPicker instance and prepare to be
+      // initialized by the "MonthPickerInit" event from datetimepopup.xml
+      const root = document.getElementById("month-picker");
+      new MonthYear(
+        {
+          locale: navigator.language,
+          setYear: year => {
+            console.log(`Year set to: ${year}`);
+          },
+          setMonth: month => {
+            console.log(`Month set to: ${month}`);
+          },
+          getMonthString: month => new Intl.DateTimeFormat(navigator.language, { month: "long" }).format(new Date(0, month)),
+          datetimeOrders: new Intl.DateTimeFormat(navigator.language)
+            .formatToParts(new Date(0))
+            .map(part => part.type),
+        },
+        {
+          monthYearNav: root.querySelector(".month-year-nav"),
+          monthYear: root.querySelector(".month-year"),
+          monthYearView: root.querySelector(".month-year-view"),
+        }
+      );
+    </script>
+  </body>
+</html>
