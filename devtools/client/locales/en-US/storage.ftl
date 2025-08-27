@@ -42,6 +42,10 @@ storage-search-box =
 storage-variable-view-search-box =
   .placeholder = Filter values
 
+# Tooltip shown when hovering the toolbar button to clear all storage data
+storage-clear-all-storage-data =
+  .tooltiptext = Clear All Storage Data
+
 # Add Item button title
 storage-add-button =
   .title = Add Item
