@@ -16,6 +16,9 @@
     rel="stylesheet"
     href="chrome://devtools/content/shared/widgets/widgets.css"
   />
+  <html:link rel="stylesheet" href="chrome://devtools/content/shared/splitview.css" />
+  <html:link rel="stylesheet" href="chrome://devtools/content/shared/toolbarbutton.css" />
+  <html:link rel="stylesheet" href="chrome://devtools/skin/splitview.css" />
   <html:link rel="stylesheet" href="chrome://devtools/skin/widgets.css" />
   <html:link rel="stylesheet" href="chrome://devtools/skin/storage.css" />
   <html:link
@@ -77,7 +80,19 @@
   </popupset>
 
   <box flex="1" class="devtools-responsive-container theme-body">
-    <vbox id="storage-tree" />
+    <box class="splitview-controller">
+      <box class="splitview-main">
+        <toolbar class="devtools-toolbar">
+          <toolbarbutton id="clear-all-storage-data-button"
+                      class="devtools-toolbarbutton devtools-clear-toolbarbutton"
+                      data-l10n-id="storage-clear-all-storage-data"/>
+        </toolbar>
+      </box>
+      <box id="splitview-resizer-target" class="theme-sidebar splitview-nav-container"
+              persist="height">
+        <vbox id="storage-tree" />
+      </box> <!-- .splitview-nav-container -->
+    </box>   <!-- .splitview-controller -->
     <splitter class="devtools-side-splitter" />
     <vbox flex="1">
       <hbox

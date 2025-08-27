@@ -479,6 +479,10 @@ iframe {
   background-image: url("chrome://devtools/skin/images/clear.svg");
 }
 
+.devtools-clear-toolbarbutton {
+  list-style-image: url("chrome://devtools/skin/images/clear.svg");
+}
+
 .devtools-option-toolbarbutton {
   list-style-image: url("chrome://devtools/skin/images/settings.svg");
 }

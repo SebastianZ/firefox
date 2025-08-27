@@ -46,6 +46,7 @@ loader.lazyGetter(this, "standardSessionString", () => {
 
 const lazy = {};
 ChromeUtils.defineESModuleGetters(lazy, {
+  SiteDataManager: "resource:///modules/SiteDataManager.sys.mjs",
   VariablesView: "resource://devtools/client/storage/VariablesView.sys.mjs",
 });
 
@@ -141,6 +142,7 @@ class StorageUI {
     this._commands = commands;
     this.sidebarToggledOpen = null;
     this.shouldLoadMoreItems = true;
+    this.mainHost = null;
 
     const treeNode = this._panelDoc.getElementById("storage-tree");
     this.tree = new TreeWidget(treeNode, {
@@ -207,6 +209,7 @@ class StorageUI {
       this.onVariableViewPopupShowing
     );
 
+    this.onClearAllStorageData = this.onClearAllStorageData.bind(this);
     this.onRefreshTable = this.onRefreshTable.bind(this);
     this.onAddItem = this.onAddItem.bind(this);
     this.onCopyItem = this.onCopyItem.bind(this);
@@ -220,6 +223,14 @@ class StorageUI {
     this.onRemoveAll = this.onRemoveAll.bind(this);
     this.onRemoveAllSessionCookies = this.onRemoveAllSessionCookies.bind(this);
     this.onRemoveTreeItem = this.onRemoveTreeItem.bind(this);
+
+    this._clearAllStorageDataButton = this._panelDoc.getElementById(
+      "clear-all-storage-data-button"
+    );
+    this._clearAllStorageDataButton.addEventListener(
+      "click",
+      this.onClearAllStorageData
+    );
 
     this._refreshButton = this._panelDoc.getElementById("refresh-button");
     this._refreshButton.addEventListener("click", this.onRefreshTable);
@@ -1020,6 +1031,7 @@ class StorageUI {
             this.tree.add([type, host, ...names]);
             if (!this.tree.selectedItem) {
               this.tree.selectedItem = [type, host, names[0], names[1]];
+              this.mainHost = host;
             }
           } catch (ex) {
             // Do Nothing
@@ -1027,6 +1039,7 @@ class StorageUI {
         }
         if (!this.tree.selectedItem) {
           this.tree.selectedItem = [type, host];
+          this.mainHost = host;
         }
       }
     };
@@ -1600,6 +1613,24 @@ class StorageUI {
   onVariableViewPopupShowing() {
     const item = this.view.getFocusedItem();
     this._variableViewPopupCopy.setAttribute("disabled", !item);
+  }
+
+  /**
+   * Handles clearing all data stored for the current host
+   */
+  async onClearAllStorageData() {
+    if (!this.mainHost) {
+      return;
+    }
+
+    await lazy.SiteDataManager.updateSites();
+    const baseDomain = lazy.SiteDataManager.getBaseDomainFromHost(this.mainHost);
+    if (
+      lazy.SiteDataManager.promptSiteDataRemoval(this._panelDoc.defaultView, [baseDomain])
+    ) {
+      await lazy.SiteDataManager.remove(baseDomain);
+      this.onRefreshTable();
+    }
   }
 
   /**
