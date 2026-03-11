@@ -91,6 +91,16 @@ options-stylesheet-autocompletion-label = Autocomplete CSS
 options-stylesheet-autocompletion-tooltip =
     .title = Autocomplete CSS properties, values and selectors in Style Editor as you type
 
+## Application panel section
+
+# The heading
+options-application-label = Application
+
+# The label for the checkbox that toggles whether the Session History tab is enabled
+options-application-session-history-label = Enable Session History (experimental)
+options-application-session-history-tooltip =
+    .title = Enables the Session History tab in the Application panel, which allows you to inspect the session history of the current page.
+
 ## Screenshot section
 
 # The heading
